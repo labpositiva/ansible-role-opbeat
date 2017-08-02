@@ -1,0 +1,12 @@
+---
+# task for opbeat.opbeat
+
+- include: install.d/CentOS.yaml
+  when: ansible_distribution == "CentOS"
+  tags:
+    - opbeat
+
+- include: install.d/Ubuntu.yaml
+  when: ansible_distribution == "Ubuntu"
+  tags:
+    - opbeat
