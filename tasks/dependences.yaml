@@ -1,0 +1,38 @@
+---
+
+# task file for opbeat.opbeat
+
+- name: Update package repositories
+  become: true
+  apt:
+    update_cache: True
+  when: ansible_distribution == "Ubuntu"
+  tags:
+    - apt
+    - update_cache
+
+- name: Install opbeat package dependencies
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: present
+  register: install_opbeat_package_dependencies
+  when: _opbeat_package_dependencies is defined
+  with_items: "{{ _opbeat_package_dependencies | default([]) }}"
+  tags:
+    - apt
+    - dependencies
+- debug: var=install_opbeat_package_dependencies.stdout_lines
+
+- name: Install opbeat dependencies
+  become: true
+  apt:
+    name: "{{ item.name }}"
+    state: present
+  register: install_opbeat_dependencies
+  when: _opbeat_dependencies is defined
+  with_items: "{{ _opbeat_dependencies | default({}) }}"
+  tags:
+    - apt
+    - dependencies
+- debug: var=install_opbeat_dependencies.stdout_lines

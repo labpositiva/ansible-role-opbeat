@@ -1,0 +1,10 @@
+---
+# task for opbeat.opbeat
+
+- name: Upgrade Release Version
+  become: true
+  become_user: "{{ user }}"
+  shell: ". {{ _opbeat_file }}"
+  tags:
+    - opbeat
+    - upgrade
