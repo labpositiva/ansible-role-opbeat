@@ -1,0 +1,14 @@
+---
+# vars file for opbeat.opbeat
+
+_opbeat_home_path: "/home/{{ user }}"
+_opbeat_file: "{{_opbeat_home_path}}/opbeat.sh"
+
+_opbeat:
+  templates:
+    - src: "opbeat.sh.j2"
+      dest: "{{ _opbeat_file }}"
+
+_opbeat_pip_dependences:
+  - name: opbeat
+    version: 3.3.3
