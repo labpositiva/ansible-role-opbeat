@@ -1,0 +1,15 @@
+---
+
+# task file for opbeat.opbeat
+
+- name: Ensure apt cache is up to date
+  apt:
+    update_cache: true
+
+
+- name: Install opbeat dependencies
+  apt: name={{ item }} state=present update_cache=true
+  with_items: "{{ opbeat_packages | default([]) }}"
+  when: opbeat_packages is defined
+  tags:
+    - opbeat

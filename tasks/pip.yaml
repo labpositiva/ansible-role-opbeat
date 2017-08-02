@@ -1,0 +1,8 @@
+---
+# task for opbeat.opbeat
+
+- name: Install packages via pip opbeat
+  become: true
+  pip: name="{{ item.name }}" version="{{ item.version }}"
+  when: _opbeat_pip_dependencies is defined
+  with_items: "{{ _opbeat_pip_dependencies | default({}) }}"

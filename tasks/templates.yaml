@@ -1,0 +1,9 @@
+---
+# task file for opbeat.opbeat
+
+- name: copy templates
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items: "{{ _opbeat.templates | default({}) }}"
+  when: _opbeat.templates is defined
